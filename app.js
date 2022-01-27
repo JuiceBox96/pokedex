@@ -63,5 +63,3 @@ function createPokemonCard(pokemon) {
 }
 
 fetchPokemons();
-
-
