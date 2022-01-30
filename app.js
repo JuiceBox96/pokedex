@@ -20,6 +20,9 @@ const colors = {
 	normal: '#F5F5F5'
 }
 
+const main_types = Object.keys(colors);
+
+
 //AJAX Function to GET Poke API - https://rapidapi.com/lduran2@gmail.com/api/pokedex2/
 const fetchPokemons = async () => {
     for (let i = 1; 1 <= pokemon_count; i++) {
@@ -56,21 +59,20 @@ function createPokemonCard(pokemon){
 	   }
 	}
 
-	const pokeName = pokemon.name.toLowerCase()
+	const poke_types = pokemon.types.map(type => type.type.name)
+	const type = main_types.find(type => poke_types.indexOf(type) > -1)
+	const name = pokemon.name[0].toUpperCase();
+	const color = colors[type];
 	
+	pokemonEl.style.backgroundColor = color;
 	pokemonInnerHTML = `
 	<div class="img-container">
-	   <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${idThirdDigit()}${idSecondDigit()}${pokemon.id}.png" alt="">
+	   <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${idThirdDigit()}${idSecondDigit()}${pokemon.id}.png" alt="${name}">
 	</div>
-
 	<div class="info">
-
-	   <span class="number">#001</span>
-
+	   <span class="number">#${pokemon.id}</span>
 	   <h3 class="name">${pokemon.name}</h3>
-
-	   <small class="type">Type: <span>placeholder</span></small>
-
+	   <small class="type">Type: <span>${type}</span></small>
 	</div>`
   
 	pokemonEl.innerHTML = pokemonInnerHTML
